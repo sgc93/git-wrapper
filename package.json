@@ -1,5 +1,5 @@
 {
-  "name": "git-wrapper",
+  "name": "git-wrapped",
   "version": "1.0.0",
   "description": "a GitHub profile wrapper package that summerizes and do analytics for a given GitHub profile",
   "keywords": [
@@ -7,7 +7,10 @@
     "github-profile-wrapper",
     "github-profile",
     "git-profile",
-    "git-wrapped"
+    "git-wrapped",
+    "git-profile-analyzer",
+    "git-profile-statistics",
+    "github-profile"
   ],
   "repository": {
     "type": "git",
