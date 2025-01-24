@@ -1,7 +1,7 @@
 {
   "name": "git-wrapped",
   "version": "1.0.0",
-  "description": "a GitHub profile wrapper package that summerizes and do analytics for a given GitHub profile",
+  "description": "a GitHub profile wrapper package to summerize and do analytics for a given GitHub profile using GitHub API",
   "keywords": [
     "git-wrapper",
     "github-profile-wrapper",
@@ -14,9 +14,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git-wrapper"
+    "url": "git-wrapped"
   },
-  "license": "ISC",
+  "license": "MIT",
   "author": "Smachew Gedefaw Chekol",
   "type": "commonjs",
   "main": "index.js",
