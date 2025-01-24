@@ -1,0 +1,23 @@
+{
+  "name": "git-wrapper",
+  "version": "1.0.0",
+  "description": "a GitHub profile wrapper package that summerizes and do analytics for a given GitHub profile",
+  "keywords": [
+    "git-wrapper",
+    "github-profile-wrapper",
+    "github-profile",
+    "git-profile",
+    "git-wrapped"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git-wrapper"
+  },
+  "license": "ISC",
+  "author": "Smachew Gedefaw Chekol",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
