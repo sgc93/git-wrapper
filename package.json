@@ -1,5 +1,5 @@
 {
-  "name": "git-wrapped",
+  "name": "git-wrap",
   "version": "1.0.0",
   "description": "a GitHub profile wrapper package to summerize and do analytics for a given GitHub profile using GitHub API",
   "keywords": [
@@ -14,7 +14,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git-wrapped"
+    "url": "git-wrap"
   },
   "license": "MIT",
   "author": "Smachew Gedefaw Chekol",
