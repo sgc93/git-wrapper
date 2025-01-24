@@ -19,6 +19,10 @@ const getUserProfile = async (username, token) => {
       blog,
       email,
       hireable,
+      public_repos,
+      public_gists,
+      followers,
+      following,
       twitter_username,
     } = response.data;
 
@@ -36,6 +40,10 @@ const getUserProfile = async (username, token) => {
       blogUrl: blog,
       email,
       hireable,
+      followers,
+      following,
+      publicRepos: public_repos,
+      publicGists: public_gists,
       xUsername: twitter_username,
     };
   } catch (error) {
