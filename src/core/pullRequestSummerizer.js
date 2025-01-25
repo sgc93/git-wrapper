@@ -1,4 +1,5 @@
 const { default: axios } = require("axios");
+const { unknowError, customError } = require("../utils/error");
 
 const pullRequestSummerizer = async (username, token) => {
   try {
@@ -6,11 +7,18 @@ const pullRequestSummerizer = async (username, token) => {
     const headers = token ? { headers: `Bearer ${token}` } : {};
 
     const response = await axios.get(url, { headers });
-    const pr = response.data.total_count;
+    const pullRequests = response.data.total_count;
 
-    return pr;
+    return {
+      success: true,
+      data: { pullRequests }
+    };
   } catch (error) {
-    throw new Error("Error while tying to search for pull requests");
+    if (error.response) {
+      return customError(error);
+    }
+
+    return unknowError(error);
   }
 };
 

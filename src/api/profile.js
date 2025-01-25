@@ -1,6 +1,6 @@
 const axios = require("axios");
 const { getErrorMessage } = require("../utils/format");
-const unknowError = require("../utils/unknownError");
+const unknowError = require("../utils/error");
 
 const getUserProfile = async (username, token) => {
   try {

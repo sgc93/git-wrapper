@@ -1,6 +1,6 @@
 const getCommitsBetween = require("../api/commits");
 const GitWrapperError = require("../model/GitWrapperError");
-const unknowError = require("../utils/unknownError");
+const unknowError = require("../utils/error");
 
 const commitSummerizer = async (username, token, created_at) => {
   const commitsPerYear = {};

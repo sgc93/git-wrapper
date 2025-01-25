@@ -1,4 +1,5 @@
 const { default: axios } = require("axios");
+const { customError, unknowError } = require("../utils/error");
 
 const getOrgs = async (username, token) => {
   try {
@@ -6,9 +7,18 @@ const getOrgs = async (username, token) => {
 
     const headers = token ? { headers: `token ${token}` } : {};
     const response = await axios.get(url, { headers });
-    return response.data.length;
+    return {
+      success: true,
+      data: {
+        orgs: response.data.length
+      }
+    };
   } catch (error) {
-    throw new Error("Error while trying to fetch recent activities.");
+    if (error.response) {
+      return customError(error);
+    }
+
+    return unknowError(error);
   }
 };
 

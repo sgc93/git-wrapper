@@ -35,9 +35,16 @@ const recentActivities = async (username, token) => {
     const url = `https://api.github.com/users/${username}/events/public`;
     const headers = token ? { headers: `token ${token}` } : {};
     const response = await axios.get(url, { headers });
-    return filterEvent(response.data.slice(0, 10));
+    return {
+      success: true,
+      data: {events: filterEvent(response.data.slice(0, 10))}
+    }
   } catch (error) {
-    throw new Error("Error while trying to fetch recent activities.");
+    if (error.response) {
+      return customError(error);
+    }
+
+    return unknowError(error);
   }
 };
 

@@ -1,6 +1,6 @@
 const { default: axios } = require("axios");
 const { getErrorMessage } = require("../utils/format");
-const unknowError = require("../utils/unknownError");
+const { unknowError, customError } = require("../utils/error");
 
 const issueSummerizer = async (username, token) => {
   try {
@@ -16,15 +16,7 @@ const issueSummerizer = async (username, token) => {
     };
   } catch (error) {
     if (error.response) {
-      const err = getErrorMessage(error.response.status);
-      return {
-        success: false,
-        error: {
-          code: err.code,
-          message: err.message,
-          details: error.response.data
-        }
-      };
+      return customError(error);
     }
 
     return unknowError(error);
