@@ -17,7 +17,6 @@ const repoSummerizer = (repos) => {
   const topStarredRepos = filterRepoData(
     totalRepos > 5 ? sortedRepos.slice(0, 6) : sortedRepos
   );
-  console.log(topStarredRepos);
 
   const topCommitedRepos = [];
 
