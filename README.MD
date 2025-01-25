@@ -2,6 +2,8 @@
 
 Git Wrapper is a powerful Node.js package that provides an easy way to interact with the GitHub API. It wraps various endpoints and operations, enabling developers to access and summarize GitHub data with minimal effort. This package simplifies data retrieval and analysis from GitHub, making it an excellent choice for integrating GitHub functionalities into your applications.
 
+![Used-In-MyPortfolio](assets/sample_wrapper.png)
+
 ## Features
 
 - Fetch user profiles and organization data.
