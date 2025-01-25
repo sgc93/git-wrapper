@@ -1,5 +1,6 @@
 const axios = require("axios");
 const { getErrorMessage } = require("../utils/format");
+const unknowError = require("../utils/unknownError");
 
 const getUserProfile = async (username, token) => {
   try {
@@ -60,14 +61,7 @@ const getUserProfile = async (username, token) => {
         }
       };
     } else {
-      return {
-        success: false,
-        error: {
-          code: "UNKNOWN_ERROR",
-          message: "An unknown error occurred",
-          details: error.message
-        }
-      };
+      return unknowError(error);
     }
   }
 };
