@@ -67,6 +67,13 @@ const lngSummerizer = async (repos, token) => {
     const totalLngs = lngs.length;
     const lngCoverage = {};
 
+    /*
+     *  Estimated LOC = Code size in bytes / Average bytes per line
+     *  Let Average Bytes per Line =  70 bytes/line
+     *
+     */
+    const loc = Math.ceil(totalCodeSize / 70);
+
     for (const [lng, bytes] of lngs) {
       lngCoverage[lng] = ((bytes / totalCodeSize) * 100).toFixed(2);
     }
@@ -76,6 +83,7 @@ const lngSummerizer = async (repos, token) => {
     const topThreeLanguages = getTopLanguages(lngCoverage);
 
     return {
+      totalLineOfCode: loc,
       totalLngs,
       topThreeLanguages,
       lngCoverage,
