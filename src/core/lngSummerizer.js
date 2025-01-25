@@ -1,4 +1,6 @@
-const { getRepoLngs } = require("../api/repos");
+const GitWrapperError = require("../model/GitWrapperError");
+const { unknowError } = require("../utils/error");
+const { throwErrorMessage } = require("../utils/format");
 
 const getTopLng = (lngCoverage) => {
   let topCoverage = 0;
@@ -46,6 +48,24 @@ const getLngPerRepo = (repos) => {
   return lngRepoCoverage;
 };
 
+const getRepoLngs = async (repoUrl, token) => {
+  try {
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    const response = await axios.get(`${repoUrl}/languages`, { headers });
+    return response.data;
+  } catch (error) {
+    if (error.response) {
+      throwErrorMessage(error.response.status, error);
+    } else {
+      throw new GitWrapperError(
+        "NETWORK_ERROR",
+        "A network error occurred. Please check your internet connection.",
+        error.message
+      );
+    }
+  }
+};
+
 const lngSummerizer = async (repos, token) => {
   const lngStats = {};
   let totalCodeSize = 0;
@@ -83,15 +103,29 @@ const lngSummerizer = async (repos, token) => {
     const topThreeLanguages = getTopLanguages(lngCoverage);
 
     return {
-      totalLineOfCode: loc,
-      totalLngs,
-      topThreeLanguages,
-      lngCoverage,
-      lngRepoCoverage,
-      topLanguage,
+      success: true,
+      data: {
+        totalLineOfCode: loc,
+        totalLngs,
+        topThreeLanguages,
+        lngCoverage,
+        lngRepoCoverage,
+        topLanguage
+      }
     };
   } catch (error) {
-    throw new Error(error);
+    if (error instanceof GitWrapperError) {
+      return {
+        success: false,
+        error: {
+          code: error.code,
+          message: error.message,
+          details: error.details
+        }
+      };
+    }
+
+    return unknowError(error);
   }
 };
 

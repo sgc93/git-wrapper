@@ -1,5 +1,6 @@
 const { filterRepoData } = require("../utils/filterData");
 const { sortReposByStars } = require("../utils/sort");
+
 const calcTotalStars = (repos) => {
   let stars = 0;
   repos.forEach((repo) => {
