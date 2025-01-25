@@ -1,5 +1,15 @@
 const axios = require("axios");
 
+const getRepoLngs = async (repoUrl, token) => {
+  try {
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    const response = await axios.get(`${repoUrl}/languages`, { headers });
+    return response.data;
+  } catch (error) {
+    throw new Error("Error while fetching repo languages");
+  }
+};
+
 const getAllRepos = async (username, token) => {
   const repos = [];
   let page = 1;
@@ -36,4 +46,4 @@ const getAllRepos = async (username, token) => {
   return repos;
 };
 
-module.exports = getAllRepos;
+module.exports = { getAllRepos, getRepoLngs };
