@@ -1,5 +1,7 @@
 const axios = require("axios");
 
+
+
 const getRepoLngs = async (repoUrl, token) => {
   try {
     const headers = token ? { Authorization: `Bearer ${token}` } : {};
@@ -10,22 +12,58 @@ const getRepoLngs = async (repoUrl, token) => {
   }
 };
 
+const getRepoIssues = async (repoUrl, token) => {
+  try {
+    let issues = 0;
+    let hasMore = true;
+    let page = 1;
+
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
+    while (hasMore) {
+      const response = await axios.get(`${repoUrl}/issues`, {
+        headers,
+        params: {
+          page,
+          per_page: 100,
+        },
+      });
+
+      issues += response.data.length;
+
+      if (response.data.length === 0 || response.data.length < 100) {
+        hasMore = false;
+      } else {
+        page++;
+      }
+    }
+
+    return issues;
+  } catch (error) {
+    console.error(
+      "Error fetching repo issues:",
+      error.response || error.message || error
+    );
+    throw new Error("Error while fetching repo issues");
+  }
+};
+
 const getRepoCommits = async (repoUrl, username, token) => {
   try {
     const totalRepoCommits = [];
     let hasMore = true;
     let page = 1;
-    params = {
-      author: username,
-      page: page,
-      per_page: 100,
-    };
+
     const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
     while (hasMore) {
       const response = await axios.get(`${repoUrl}/commits`, {
         headers,
-        params,
+        params: {
+          author: username,
+          page: page,
+          per_page: 100,
+        },
       });
 
       const commits = response.data.map((commit) => {
@@ -88,4 +126,4 @@ const getAllRepos = async (username, token) => {
   return repos;
 };
 
-module.exports = { getAllRepos, getRepoLngs, getRepoCommits };
+module.exports = { getAllRepos, getRepoLngs, getRepoCommits, getRepoIssues };
