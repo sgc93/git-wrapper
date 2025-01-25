@@ -12,41 +12,6 @@ const getRepoLngs = async (repoUrl, token) => {
   }
 };
 
-const getRepoIssues = async (repoUrl, token) => {
-  try {
-    let issues = 0;
-    let hasMore = true;
-    let page = 1;
-
-    const headers = token ? { Authorization: `Bearer ${token}` } : {};
-
-    while (hasMore) {
-      const response = await axios.get(`${repoUrl}/issues`, {
-        headers,
-        params: {
-          page,
-          per_page: 100,
-        },
-      });
-
-      issues += response.data.length;
-
-      if (response.data.length === 0 || response.data.length < 100) {
-        hasMore = false;
-      } else {
-        page++;
-      }
-    }
-
-    return issues;
-  } catch (error) {
-    console.error(
-      "Error fetching repo issues:",
-      error.response || error.message || error
-    );
-    throw new Error("Error while fetching repo issues");
-  }
-};
 
 const getRepoCommits = async (repoUrl, username, token) => {
   try {
@@ -94,12 +59,10 @@ const getAllRepos = async (username, token) => {
   const repos = [];
   let page = 1;
   let fetching = true;
-  const url = `https://api.github.com/${
-    token ? "user" : `users/${username}`
-  }/repos`;
+  const url = `https://api.github.com/users/${username}/repos`;
   const headers = token
     ? {
-        Authorization: `Bearer ${token}`,
+        Authorization: `token ${token}`,
       }
     : {};
   const params = {
@@ -126,4 +89,4 @@ const getAllRepos = async (username, token) => {
   return repos;
 };
 
-module.exports = { getAllRepos, getRepoLngs, getRepoCommits, getRepoIssues };
+module.exports = { getAllRepos, getRepoLngs, getRepoCommits };
