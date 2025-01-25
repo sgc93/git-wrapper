@@ -34,7 +34,7 @@ const getUserProfile = async (username, token) => {
       location,
       company,
       avatarUrl: avatar_url,
-      accountCreated: created_at,
+      created_at,
       url: html_url,
       type,
       blogUrl: blog,
