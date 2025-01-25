@@ -1,6 +1,7 @@
 const GitWrapperError = require("../model/GitWrapperError");
 const { unknowError } = require("../utils/error");
 const { throwErrorMessage } = require("../utils/format");
+const axios = require("axios");
 
 const getTopLng = (lngCoverage) => {
   let topCoverage = 0;
