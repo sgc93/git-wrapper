@@ -1,12 +1,12 @@
-const { getRepoIssues } = require("../api/repos");
+const { default: axios } = require("axios");
 
-const issueSummerizer = async (repos, token) => {
+const issueSummerizer = async (username, token) => {
   try {
-    let issues = 0;
-    for (const repo of repos) {
-      const repoIssues = await getRepoIssues(repo.url, token);
-      issues += repoIssues;
-    }
+    const url = `https://api.github.com/search/issues?q=author:${username}+type:issue`;
+    const headers = token ? { headers: `token ${token}` } : {};
+
+    const response = await axios.get(url, { headers });
+    const issues = response.data.total_count;
 
     return issues;
   } catch (error) {
