@@ -1,3 +1,4 @@
+const { filterRepoData } = require("../utils/filterData");
 const { sortReposByStars } = require("../utils/sort");
 const calcTotalStars = (repos) => {
   let stars = 0;
@@ -11,9 +12,14 @@ const calcTotalStars = (repos) => {
 const repoSummerizer = (repos) => {
   const sortedRepos = sortReposByStars(repos);
   const totalRepos = sortedRepos.length;
-  const topStarredRepos = sortedRepos.slice(0, 18);
-  const topCommitedRepos = [];
+
   const starsEarned = calcTotalStars(repos);
+  const topStarredRepos = filterRepoData(
+    totalRepos > 5 ? sortedRepos.slice(0, 6) : sortedRepos
+  );
+  console.log(topStarredRepos);
+
+  const topCommitedRepos = [];
 
   return {
     totalRepos,
