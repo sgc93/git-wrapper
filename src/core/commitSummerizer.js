@@ -1,23 +1,17 @@
-const { getRepoCommits } = require("../api/repos");
+const getCommitsBetween = require("../api/commits");
 
-const commitSummerizer = async (repos, username, token) => {
+const commitSummerizer = async (username, token, created_at) => {
   const commitsPerYear = {};
   let totalCommits = 0;
 
   try {
-    for (const repo of repos) {
-      const commits = await getRepoCommits(repo.url, username, token);
-      for (const commit of commits) {
-        const newDate = new Date(commit.date);
-        const year = newDate.getFullYear();
+    const startYear = new Date(created_at).getFullYear();
+    const currentYear = new Date().getFullYear();
 
-        if (!commitsPerYear[year]) {
-          commitsPerYear[year] = 0;
-        }
-
-        commitsPerYear[year] += 1;
-        totalCommits += 1;
-      }
+    for (let year = startYear; year <= currentYear; year++) {
+      const yearlyCommits = await getCommitsBetween(username, token, year);
+      commitsPerYear[year] = yearlyCommits;
+      totalCommits += yearlyCommits;
     }
 
     return {
