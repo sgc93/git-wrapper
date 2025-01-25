@@ -1,9 +1,10 @@
 const axios = require("axios");
+const { getErrorMessage } = require("../utils/format");
 
 const getUserProfile = async (username, token) => {
   try {
     const url = `https://api.github.com/users/${username}`;
-    const headers = token ? { Authorization: `token ${token}` } : {};
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
     const response = await axios.get(url, { headers });
     const {
       login,
@@ -22,39 +23,52 @@ const getUserProfile = async (username, token) => {
       public_repos,
       public_gists,
       followers,
-      following,
-      twitter_username,
+      following
     } = response.data;
 
     return {
-      id,
-      username: login,
-      name,
-      bio,
-      location,
-      company,
-      avatarUrl: avatar_url,
-      created_at,
-      url: html_url,
-      type,
-      blogUrl: blog,
-      email,
-      hireable,
-      followers,
-      following,
-      publicRepos: public_repos,
-      publicGists: public_gists,
-      xUsername: twitter_username,
+      success: true,
+      data: {
+        id,
+        username: login,
+        name,
+        bio,
+        location,
+        company,
+        avatarUrl: avatar_url,
+        created_at,
+        url: html_url,
+        type,
+        blogUrl: blog,
+        email,
+        hireable,
+        followers,
+        following,
+        publicRepos: public_repos,
+        publicGists: public_gists
+      }
     };
   } catch (error) {
-    if (error.response && error.response.status === 404) {
-      throw new Error(`User "${username}" not found.`);
-    } else if (error.response && error.response.status === 403) {
-      throw new Error(
-        "Rate limit exceeded. Use a personal access token for higher limits."
-      );
+    if (error.response) {
+      const err = getErrorMessage(error.response.status);
+      return {
+        success: false,
+        error: {
+          code: err.code,
+          message: err.message,
+          details: error.response.data
+        }
+      };
+    } else {
+      return {
+        success: false,
+        error: {
+          code: "UNKNOWN_ERROR",
+          message: "An unknown error occurred",
+          details: error.message
+        }
+      };
     }
-    throw new Error("An error occurred while fetching user information.");
   }
 };
 
