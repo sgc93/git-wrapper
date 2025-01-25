@@ -6,13 +6,14 @@ async function gitWrapped(username, token) {
   try {
     const profile = await getUserProfile(username, token);
     const repos = await getAllRepos(username, token);
-    const { totalRepos, topStarredRepos, topCommitedRepos } =
+    const { totalRepos, starsEarned, topStarredRepos, topCommitedRepos } =
       repoSummerizer(repos);
 
     return {
       profile,
       stats: {
         totalRepos,
+        starsEarned,
         privateRepos: totalRepos - profile.publicRepos,
         publicRepos: profile.publicRepos,
       },
