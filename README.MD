@@ -32,7 +32,7 @@ The `gitWrapped` function initializes the wrapper object with user profile data 
 ```javascript
 const { gitWrapped } = require('@sgc_packages/git-wrapper');
 
-const gitToken = 'github_pat_-------';
+const gitToken = '******* YOUR PERSONAL ACCESS TOKEN - best for portfolio integration ********';
 
 const userInfo = async () => {
   const wrapper = await gitWrapped('sgc93', gitToken);
@@ -40,7 +40,7 @@ const userInfo = async () => {
     const profile = wrapper.profile;
     console.log(profile);
 
-    const { commitSummerizer } = wrapper.methods;
+    const { commitSummerizer } = wrapper.methods;  // list of ll methods ...
     const response = await commitSummerizer(profile.username, gitToken, profile.created_at);
     if (response.success) {
       console.log(response.data.totalCommits);
@@ -61,9 +61,9 @@ userInfo();
 You can also directly import and use specific methods from the package. This approach is best if you only need certain functionalities without initializing the entire wrapper object.
 
 ```javascript
-const { getUserProfile, commitSummerizer, repoSummerizer } = require('@sgc_packages/git-wrapper');
+const { getUserProfile, commitSummerizer, repoSummerizer } = require('@sgc_packages/git-wrapper'); // list of all methods ...
 
-const gitToken = 'github_pat_-------';
+const gitToken = '******* YOUR PERSONAL ACCESS TOKEN - best for portfolio integration ********';
 
 const run = async () => {
   const profile = await getUserProfile('sgc93', gitToken);
@@ -96,7 +96,7 @@ Summarizes commit data for a user.
   - `username`: GitHub username.
   - `token`: Personal access token.
   - `created_at`: User account creation date.
-- **Returns**: Total commits and commits per year.
+- **Returns**: Total commits and commits per year (from the user's start till know).
 
 ### `getUserProfile(username, token)`
 
@@ -106,7 +106,7 @@ Fetches the GitHub user profile.
 - **Parameters**:
   - `username`: GitHub username.
   - `token`: Personal access token.
-- **Returns**: User profile data including name, bio, repositories, etc.
+- **Returns**: User profile data including name, bio, repositories, gists, etc.
 
 ### `issueSummerizer(username, token)`
 
@@ -126,7 +126,7 @@ Fetches the organizations the user belongs to.
 - **Parameters**:
   - `username`: GitHub username.
   - `token`: Personal access token.
-- **Returns**: List of organizations.
+- **Returns**: Total number of organizations.
 
 ### `recentActivities(username, token)`
 
@@ -136,7 +136,7 @@ Retrieves recent activities of the user.
 - **Parameters**:
   - `username`: GitHub username.
   - `token`: Personal access token.
-- **Returns**: List of recent activities such as commits, PRs, and issues.
+- **Returns**: List of recent activities ( top 10 recents ) such as commits, PRs, and issues.
 
 ### `pullRequestSummerizer(username, token)`
 
@@ -146,27 +146,27 @@ Summarizes pull request data for the user.
 - **Parameters**:
   - `username`: GitHub username.
   - `token`: Personal access token.
-- **Returns**: Total pull requests and detailed stats.
+- **Returns**: Total pull requests.
 
-### `lngSummerizer(username, token)`
+### `lngSummerizer(repos, token)`
 
 Summarizes languages used across all repositories.
 
 - **Purpose**: Determine language preferences and usage statistics.
 - **Parameters**:
-  - `username`: GitHub username.
+  - `repos`: list of repositories.
   - `token`: Personal access token.
-- **Returns**: Language usage stats.
+- **Returns**: Language usage stats: top language, language coverage, langauge per repos, LOC, etc.
 
-### `repoSummerizer(username, token)`
+### `repoSummerizer(repos, token)`
 
 Summarizes repository data for the user.
 
 - **Purpose**: Analyze repository contributions and trends.
 - **Parameters**:
-  - `username`: GitHub username.
+  - `repos`: User Repositories.
   - `token`: Personal access token.
-- **Returns**: Total repositories and detailed stats.
+- **Returns**: Total repositories, popular repositores and more detailed stats.
 
 ### `getAllRepos(username, token)`
 
@@ -176,7 +176,7 @@ Fetches all repositories of the user.
 - **Parameters**:
   - `username`: GitHub username.
   - `token`: Personal access token.
-- **Returns**: List of all repositories with details.
+- **Returns**: List of all repositories with details sorted by number of earned stars.
 
 ---
 
@@ -184,6 +184,7 @@ Fetches all repositories of the user.
 
 Git Wrapper is designed to be seamlessly integrated into applications requiring GitHub data, such as:
 
+- **Personal Portfolio**: detailed and visually apealing representaiton of github level coding experience.
 - **Dashboards**: Build analytics dashboards showcasing user activities, language usage, and repository stats.
 - **Developer Tools**: Enhance developer tools with GitHub insights like commit trends and pull request summaries.
 - **Project Management Apps**: Use summarization methods to monitor issues, pull requests, and repository contributions.
