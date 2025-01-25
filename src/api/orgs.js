@@ -1,8 +1,9 @@
 const { default: axios } = require("axios");
 
-const orgs = async (username, token) => {
+const getOrgs = async (username, token) => {
   try {
     const url = `https://api.github.com/users/${username}/orgs`;
+
     const headers = token ? { headers: `token ${token}` } : {};
     const response = await axios.get(url, { headers });
     return response.data.length;
@@ -11,4 +12,4 @@ const orgs = async (username, token) => {
   }
 };
 
-module.exports = orgs;
+module.exports = getOrgs;
