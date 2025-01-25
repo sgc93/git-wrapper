@@ -4,7 +4,7 @@ const sortReposByStars = (repos) => {
       return b.stargazers_count - a.stargazers_count;
     }
 
-    return new Date(a.updated_at) - new Date(b.updated_at);
+    return new Date(b.updated_at) - new Date(a.updated_at);
   });
 };
 
