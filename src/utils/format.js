@@ -1,6 +1,6 @@
 const GitWrapperError = require("../model/GitWrapperError");
 
-const throwErrorMessage = (status) => {
+const throwErrorMessage = (status, error) => {
   switch (status) {
     case 401:
       throw new GitWrapperError(
