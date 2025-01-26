@@ -1,6 +1,9 @@
+```markdown
 # Wrap-Git
 
-wrap-git is a powerful Node.js package that provides an easy way to interact with the GitHub API. It wraps various endpoints and operations, enabling developers to access and summarize GitHub data with minimal effort. This package simplifies data retrieval and analysis from GitHub, making it an excellent choice for integrating GitHub functionalities into your applications.
+`wrap-git` is a powerful Node.js package that provides an easy way to interact with the GitHub API. It wraps various endpoints and operations, enabling developers to access and summarize GitHub data with minimal effort. This package simplifies data retrieval and analysis from GitHub, making it an excellent choice for integrating GitHub functionalities into your applications.
+
+---
 
 ## Features
 
@@ -32,7 +35,7 @@ The `gitWrapped` function initializes the wrapper object with user profile data 
 ```javascript
 const { gitWrapped } = require('wrap-git');
 
-const gitToken = '******* YOUR PERSONAL ACCESS TOKEN - best for portfolio integration ********';
+const gitToken = '******* YOUR PERSONAL ACCESS TOKEN ********';
 
 const userInfo = async () => {
   const wrapper = await gitWrapped('sgc93', gitToken);
@@ -40,7 +43,7 @@ const userInfo = async () => {
     const profile = wrapper.profile;
     console.log(profile);
 
-    const { commitSummerizer } = wrapper.methods;  // list of ll methods ...
+    const { commitSummerizer } = wrapper.methods;
     const response = await commitSummerizer(profile.username, gitToken, profile.created_at);
     if (response.success) {
       console.log(response.data.totalCommits);
@@ -61,9 +64,9 @@ userInfo();
 You can also directly import and use specific methods from the package. This approach is best if you only need certain functionalities without initializing the entire wrapper object.
 
 ```javascript
-const { getUserProfile, commitSummerizer, repoSummerizer } = require('@sgc_packages/git-wrapper'); // list of all methods ...
+const { getUserProfile, commitSummerizer, repoSummerizer } = require('wrap-git');
 
-const gitToken = '******* YOUR PERSONAL ACCESS TOKEN - best for portfolio integration ********';
+const gitToken = '******* YOUR PERSONAL ACCESS TOKEN ********';
 
 const run = async () => {
   const profile = await getUserProfile('sgc93', gitToken);
@@ -96,7 +99,7 @@ Summarizes commit data for a user.
   - `username`: GitHub username.
   - `token`: Personal access token.
   - `created_at`: User account creation date.
-- **Returns**: Total commits and commits per year (from the user's start till know).
+- **Returns**: Total commits and commits per year (from the user's start till now).
 
 ### `getUserProfile(username, token)`
 
@@ -136,7 +139,7 @@ Retrieves recent activities of the user.
 - **Parameters**:
   - `username`: GitHub username.
   - `token`: Personal access token.
-- **Returns**: List of recent activities ( top 10 recents ) such as commits, PRs, and issues.
+- **Returns**: List of recent activities (top 10).
 
 ### `pullRequestSummerizer(username, token)`
 
@@ -154,9 +157,9 @@ Summarizes languages used across all repositories.
 
 - **Purpose**: Determine language preferences and usage statistics.
 - **Parameters**:
-  - `repos`: list of repositories.
+  - `repos`: List of repositories.
   - `token`: Personal access token.
-- **Returns**: Language usage stats: top language, language coverage, langauge per repos, LOC, etc.
+- **Returns**: Language usage stats: top language, language coverage, language per repo, LOC, etc.
 
 ### `repoSummerizer(repos, token)`
 
@@ -164,9 +167,9 @@ Summarizes repository data for the user.
 
 - **Purpose**: Analyze repository contributions and trends.
 - **Parameters**:
-  - `repos`: User Repositories.
+  - `repos`: User repositories.
   - `token`: Personal access token.
-- **Returns**: Total repositories, popular repositores and more detailed stats.
+- **Returns**: Total repositories, popular repositories, and detailed stats.
 
 ### `getAllRepos(username, token)`
 
@@ -176,20 +179,20 @@ Fetches all repositories of the user.
 - **Parameters**:
   - `username`: GitHub username.
   - `token`: Personal access token.
-- **Returns**: List of all repositories with details sorted by number of earned stars.
+- **Returns**: List of all repositories sorted by number of stars.
 
 ---
 
 ## Integration and Use Cases
 
-Git Wrapper is designed to be seamlessly integrated into applications requiring GitHub data, such as:
+`wrap-git` is designed to be seamlessly integrated into applications requiring GitHub data, such as:
 
-- **Personal Portfolio**: detailed and visually apealing representaiton of github level coding experience.
+- **Personal Portfolios**: Create visually appealing representations of GitHub activity.
 - **Dashboards**: Build analytics dashboards showcasing user activities, language usage, and repository stats.
 - **Developer Tools**: Enhance developer tools with GitHub insights like commit trends and pull request summaries.
-- **Project Management Apps**: Use summarization methods to monitor issues, pull requests, and repository contributions.
+- **Project Management Apps**: Monitor issues, pull requests, and repository contributions.
 
-With its modularized functions and wrapper object, Git Wrapper is flexible enough to fit various use cases and project architectures.
+With its modularized functions and wrapper object, `wrap-git` is flexible enough to fit various use cases and project architectures.
 
 ---
 
