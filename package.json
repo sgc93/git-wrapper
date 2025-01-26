@@ -1,6 +1,6 @@
 {
   "name": "wrap-git",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a GitHub profile wrapper package to summarize and do analytics for a given GitHub profile using GitHub API",
   "keywords": [
     "git-wrapper",
