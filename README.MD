@@ -1,6 +1,6 @@
-# Git Wrapper
+# Wrap-Git
 
-Git Wrapper is a powerful Node.js package that provides an easy way to interact with the GitHub API. It wraps various endpoints and operations, enabling developers to access and summarize GitHub data with minimal effort. This package simplifies data retrieval and analysis from GitHub, making it an excellent choice for integrating GitHub functionalities into your applications.
+wrap-git is a powerful Node.js package that provides an easy way to interact with the GitHub API. It wraps various endpoints and operations, enabling developers to access and summarize GitHub data with minimal effort. This package simplifies data retrieval and analysis from GitHub, making it an excellent choice for integrating GitHub functionalities into your applications.
 
 ## Features
 
@@ -16,7 +16,7 @@ Git Wrapper is a powerful Node.js package that provides an easy way to interact 
 Install the package using npm:
 
 ```bash
-npm install @sgc_packages/git-wrapper
+npm install wrap-git
 ```
 
 ---
@@ -30,7 +30,7 @@ The package provides two main ways to use it: **Wrapper Object** and **Direct Me
 The `gitWrapped` function initializes the wrapper object with user profile data and provides access to various summarization methods. This approach is ideal if you need a centralized object to work with multiple GitHub functionalities.
 
 ```javascript
-const { gitWrapped } = require('@sgc_packages/git-wrapper');
+const { gitWrapped } = require('wrap-git');
 
 const gitToken = '******* YOUR PERSONAL ACCESS TOKEN - best for portfolio integration ********';
 
